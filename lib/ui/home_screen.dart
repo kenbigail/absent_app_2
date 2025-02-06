@@ -64,8 +64,7 @@ class HomeScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const AttendanceScreen()));
+                                  builder: (context) => const AttendScreen()));
                         }),
                     _buildMenuCard(
                         icon: Icons.beach_access_rounded,
