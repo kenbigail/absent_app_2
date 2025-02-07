@@ -27,7 +27,8 @@ class _AttendScreenState extends State<AttendScreen> {
   XFile? image;
   double dLong = 0, dLat = 0;
   final controllerName = TextEditingController();
-  final CollectionReference dataCollection = FirebaseFirestore.instance.collection('attendance');
+  final CollectionReference dataCollection =
+      FirebaseFirestore.instance.collection('attendance');
 
   @override
   void initState() {
@@ -154,7 +155,7 @@ class _AttendScreenState extends State<AttendScreen> {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Camera())),
+              context, MaterialPageRoute(builder: (context) => CameraScreen())),
           child: Container(
             width: double.infinity,
             height: 200,
@@ -427,18 +428,16 @@ class _AttendScreenState extends State<AttendScreen> {
 
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
-      content: Row(children: [
-        CircularProgressIndicator(color: Colors.indigo[400]),
-        Container(margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
-      ])
-    );
+        content: Row(children: [
+      CircularProgressIndicator(color: Colors.indigo[400]),
+      Container(margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
+    ]));
     showDialog(
-      barrierDismissible: false,
-      context: context, 
-      builder: (BuildContext context){
-        return alert;
-      }
-    );
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
   }
 
   Future<void> submitData(String address, String status, String name) async {
@@ -448,28 +447,28 @@ class _AttendScreenState extends State<AttendScreen> {
       'status': status,
       'name': name,
       'dateTime': strDateTime,
-    }).then((result){
+    }).then((result) {
       setState(() {
         try {
-          _showSnackBar(icon: Icons.check_box_rounded, 
-          message: "Yeay! You have successfully submitted your attendance", 
-          color: Colors.green);
-          Navigator.pushReplacement(context, 
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+          _showSnackBar(
+              icon: Icons.check_box_rounded,
+              message: "Yeay! You have successfully submitted your attendance",
+              color: Colors.green);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         } catch (e) {
           _showSnackBar(
-            icon: Icons.error, 
-            message: e.toString(), 
-            color: Colors.deepOrange
-          );
+              icon: Icons.error,
+              message: e.toString(),
+              color: Colors.deepOrange);
         }
       });
     }).catchError((error) {
       _showSnackBar(
-        icon: Icons.error_outline, 
-        message: error.toString(), 
-        color: Colors.red);
-        Navigator.of(context).pop();
+          icon: Icons.error_outline,
+          message: error.toString(),
+          color: Colors.red);
+      Navigator.of(context).pop();
     });
   }
 }
